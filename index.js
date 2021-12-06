@@ -7,6 +7,7 @@ const Manager = require("./lib/manager");
 const Engineer = require("./lib/engineer");
 const Intern = require("./lib/intern");
 
+//Prompt Array of general questions
 const questions = [
   {
     type: "input",
@@ -30,6 +31,7 @@ const questions = [
   },
 ];
 
+//Prompt area of team-specific questions that can be looped
 const teamQuestions = [
   {
     type: "list",
@@ -92,21 +94,19 @@ const teamQuestions = [
     default: true,
   },
 ];
-
+//VARIABLE DECLARATIONS
+//Global variables to creat team array and manager
 const team = [];
 let manager;
 
-//Create function to write to HTML
+//FUNCTION DECLARATIONS
+
+//Function which writes HTML to file
 function writeToFile(fileName, data, callback) {
   fs.writeFile(`${fileName}.html`, data, callback);
 }
 
-//Create function to initialize the app
-//Will need to add logic so that if the user picks Engineer or Intern, they get those lists of questions. Check Inquirer to make sure it doesn't have that functionality built in.
-//Want to ask general questions prompt first
-//Then, ask team menu question
-//Then create if statement to handle progressing through potential responses
-
+//Function which asks initial manager questions
 function init() {
   inquirer.prompt(questions).then((response) => {
     manager = new Manager(
@@ -115,11 +115,11 @@ function init() {
       response.managerEmail,
       response.managerOffice
     );
-    console.log(manager);
     inquirer.prompt(teamQuestions).then(askTeam);
   });
 }
 
+//Function which creates team card objects
 function askTeam(response) {
   if (response.typeTeam === "Engineer") {
     const engineer = new Engineer(
@@ -146,9 +146,8 @@ function askTeam(response) {
     writeHTML();
   }
 }
-//Function call to initialize app
-init();
 
+//Function which generates HTML and then calls the function that writes it to file
 function writeHTML() {
   const result = generateHTML(manager, team);
   writeToFile("myteam", result, (err) => {
@@ -157,3 +156,6 @@ function writeHTML() {
       : console.log("Generating page...");
   });
 }
+
+//Function call to initialize app
+init();

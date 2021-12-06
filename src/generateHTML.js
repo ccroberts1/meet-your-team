@@ -2,6 +2,7 @@ const Manager = require("../lib/manager");
 const Engineer = require("../lib/engineer");
 const Intern = require("../lib/intern");
 
+//Function which dynamically creates Bootstrap cards based on the type of role
 function createTeamCard(member) {
   if (member.getRole() === "Engineer") {
     return `<div class="card text-white m-3 shadow" style="max-width: 18rem">
@@ -16,7 +17,9 @@ function createTeamCard(member) {
                     Email: <a href="mailto:${member.email}">${member.email}</a>
                   </li>
                   <li class="list-group-item">
-                    Github: <a href="${member.getGithub()}">${member.github}</a>
+                    Github: <a href="${member.getGithub()}" target="_blank">${
+      member.github
+    }</a>
                   </li>
                 </ul>
               </div>
@@ -33,13 +36,14 @@ function createTeamCard(member) {
                   <li class="list-group-item">
                     Email: <a href="mailto:${member.email}">${member.email}</a>
                   </li>
-                  <li class="list-group-item">School:${member.getSchool()}</li>
+                  <li class="list-group-item">School: ${member.getSchool()}</li>
                 </ul>
               </div>
             </div>`;
   }
 }
 
+//Function which dynamically generates Bootstrap HTML and creates manager and team cards
 function generateHTML(manager, team) {
   let teamCardsArray = [];
   team.forEach((element) => {
