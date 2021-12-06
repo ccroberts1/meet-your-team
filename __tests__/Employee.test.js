@@ -48,11 +48,11 @@ describe("Employee", () => {
       expect(newEmail()).toBe("sam@email.com");
     });
 
-    test("should return the Employee object", () => {
+    test("should return the string 'Employee'", () => {
       const obj = new Employee("Sam", 2, "sam@email.com");
-      const returnEmployee = () => obj.getRole();
+      const returnEmployee = () => `${obj.getRole()}`;
 
-      expect(returnEmployee()).toEqual(obj);
+      expect(returnEmployee()).toEqual("Employee");
     });
   });
 });

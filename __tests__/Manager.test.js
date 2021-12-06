@@ -5,11 +5,11 @@ describe("Manager", () => {
     const obj = new Manager("john doe", 3, "johndoe@email.com", "303-214-8914");
     expect(obj.officeNumber).toEqual("303-214-8914");
   });
-  test("should return the Manager object", () => {
+  test("should return the Manager role", () => {
     const obj = new Manager("Sam", 2, "sam@email.com", "303-214-8914");
-    const returnManager = () => obj.getRole();
+    const returnEmployee = () => obj.getRole();
 
-    expect(returnManager()).toEqual(obj);
+    expect(returnEmployee()).toEqual("Manager");
   });
 
   test("should retrieve the officeNumber property", () => {

@@ -1,4 +1,50 @@
-function generateHTML(data) {
+const Manager = require("../lib/manager");
+const Engineer = require("../lib/engineer");
+const Intern = require("../lib/intern");
+
+function createTeamCard(member) {
+  if (member.getRole() === "Engineer") {
+    return `<div class="card text-white m-3 shadow" style="max-width: 18rem">
+              <div class="card-header bg-primary">
+                <h2>${member.name}</h2>
+               <h3>Engineer</h3>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li class="list-group-item">ID: ${member.id}</li>
+                  <li class="list-group-item">
+                    Email: <a href="mailto:${member.email}">${member.email}</a>
+                  </li>
+                  <li class="list-group-item">
+                    Github: <a href="${member.getGithub()}">${member.github}</a>
+                  </li>
+                </ul>
+              </div>
+            </div>`;
+  } else {
+    return `<div class="card text-white m-3 shadow" style="max-width: 18rem">
+              <div class="card-header bg-primary">
+                <h2>${member.name}</h2>
+                <h3>Intern</h3>
+              </div>
+              <div class="card-body">
+                <ul class="list-group">
+                  <li class="list-group-item">ID: ${member.id}</li>
+                  <li class="list-group-item">
+                    Email: <a href="mailto:${member.email}">${member.email}</a>
+                  </li>
+                  <li class="list-group-item">School:${member.getSchool()}</li>
+                </ul>
+              </div>
+            </div>`;
+  }
+}
+
+function generateHTML(manager, team) {
+  let teamCardsArray = [];
+  team.forEach((element) => {
+    teamCardsArray.push(createTeamCard(element));
+  });
   return `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -35,21 +81,24 @@ function generateHTML(data) {
             "
           >
             <!--Manager Card-->
-            <div class="card text-white m-3" style="max-width: 18rem">
+            <div class="card text-white m-3 shadow" style="max-width: 18rem">
               <div class="card-header bg-primary">
-                <h2>${data.managerName}</h2>
+                <h2>${manager.name}</h2>
                 <h3>Manager</h3>
               </div>
               <div class="card-body">
                 <ul class="list-group">
-                  <li class="list-group-item">ID: ${data.managerID}</li>
+                  <li class="list-group-item">ID: ${manager.id}</li>
                   <li class="list-group-item">
-                    Email: <a href="mailto:${data.managerEmail}">${data.managerEmail}</a>
+                    Email: <a href="mailto:${manager.email}">${
+    manager.email
+  }</a>
                   </li>
-                  <li class="list-group-item">Office Number: ${data.managerOffice}</li>
+                  <li class="list-group-item">Office Number: ${manager.getOffice()}</li>
                 </ul>
               </div>
             </div>
+            ${teamCardsArray}
             </div>
         </div>
       </main>

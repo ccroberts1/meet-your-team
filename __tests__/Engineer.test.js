@@ -5,11 +5,11 @@ describe("Engineer", () => {
     const obj = new Engineer("john doe", 3, "johndoe@email.com", "username");
     expect(obj.github).toEqual("username");
   });
-  test("should return the Engineer object", () => {
+  test("should return the Engineer role", () => {
     const obj = new Engineer("Sam", 2, "sam@email.com", "samdoe");
-    const returnEngineer = () => obj.getRole();
+    const returnEmployee = () => obj.getRole();
 
-    expect(returnEngineer()).toEqual(obj);
+    expect(returnEmployee()).toEqual("Engineer");
   });
 
   test("should retrieve the github property", () => {
